@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>コマンド集</title>
+<style type="text/css">
+body{
+	padding:30px;
+	font-family: "メイリオ","Meiryo";
+}
+div {
+	font-size: 13px;
+}
+textarea {
+	width: 800px;
+	height: 2em;
+	font-size:10px;
+}
+button {
+	/* 背景色を濃い青色に指定 */
+	background-color: #248;
+	/* 文字色を白色に指定 */
+	color: #fff;
+	border-style: none;
+	height: 2em;
+	font-size:10px;
+	position:relative;
+	top:-7px;
+	margin:0 7px 0 0;
+	padding:0 10px 0 10px;
+	border-radius:5px;
+	cursor: pointer;
+}
+</style>
+</head>
+<body>
+<script>
+function copy(_id) {
+	var text = document.getElementById(_id);
+	text.select();
+	document.execCommand("copy");
+}
+function replace_copy(_id) {
+	var text = document.getElementById(_id);
+        rep_text = text.value;
+        rep_text = rep_text.replace(/{replace_before}/g, "replace_after");
+        rep_text = rep_text.replace(/{replace_before}/g, "replace_after");
+        rep_text = rep_text.replace(/{replace_before}/g, "replace_after");
+        rep_text = rep_text.replace(/{replace_before}/g, "replace_after");
+        text.value = rep_text;
+	text.select();
+	document.execCommand("copy");
+}
+function return_to_comma_copy(_id) {
+	var text = document.getElementById(_id);
+        rep_text = text.value;
+        rep_text = rep_text.replace(/\r?\n/g,',');
+        if (rep_text.slice(-1) == ",") {
+          rep_text = rep_text.slice(0, -1);
+        }
+        text.value = rep_text;
+	text.select();
+	document.execCommand("copy");
+}
+</script>
+<div>DB接続</div>
+<button onclick = 'copy("db_con")'>コピー</button><textarea id="db_con" spellcheck="false">cd /home/vagrant/directory.work/intf-smithsonite-pr-batch/src/sql;psql -h 127.0.0.1 -U tfuser -d db4dev</textarea><br>
+<br>
+<div>SQLスキーマ置換 <button style="top:-3px;" onclick = 'replace_copy("str_rep")'>コピー</button></div>
+<textarea id="str_rep" style="height: 5em;width:857px;" spellcheck="false"></textarea><br>
+<br>
+<div>改行→カンマ区切り <button style="top:-3px;" onclick = 'return_to_comma_copy("cnm")'>コピー</button></div>
+<textarea id="cnm" style="height: 5em;width:857px;" spellcheck="false"></textarea><br>
+<br>
+</body>
+</html>
